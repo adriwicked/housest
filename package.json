@@ -1,0 +1,23 @@
+{
+  "name": "house-mine-scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index",
+    "jasmine-test": "node node_modules/jasmine/bin/jasmine",
+    "jasmine-init": "node node_modules/jasmine/bin/jasmine init",
+    "jasmine-examples": "node node_modules/jasmine/bin/jasmine examples"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "dotenv": "^6.2.0",
+    "puppeteer": "^1.11.0",
+    "utf8": "^3.0.0"
+  },
+  "devDependencies": {
+    "jasmine": "^3.3.1"
+  }
+}
