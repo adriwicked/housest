@@ -8,19 +8,20 @@ module.exports = (function() {
 
   function updateHouses() {
     scraperFotocasa.getHousesByZipCode(zipCode)
-      .then(_addLocationToHouses);
+      .then(_addLocationToHouses)
+      .then(_saveHousesInLocalJSON(fileName))
+      .catch(_logError);
   }  
 
   function _addLocationToHouses(houses) {
-    const promises = houses.map(house => {
-      const address = utf8.encode(house.address)
+    const promises = houses.map(house => {      
+      const address = _encodeToUTF8(house.address);
 
       return googleMapsAPI.getLocationFromAddress(address)
         .then(_addLocationToHouse(house)).catch(_logError);
     });
 
-    return Promise.all(promises)
-      .then(_saveHousesInLocalJSON(fileName)).catch(_logError);    
+    return Promise.all(promises).catch(_logError);
   }
 
   function _addLocationToHouse(house) {
@@ -32,6 +33,10 @@ module.exports = (function() {
       fs.writeFileSync(fileName, JSON.stringify(locatedHouses))
       console.log(`Successfully saved ${locatedHouses.length} houses`);
     };
+  }
+
+  function _encodeToUTF8(string) {
+    return utf8.encode(string);
   }
 
   function _logError(e) {
